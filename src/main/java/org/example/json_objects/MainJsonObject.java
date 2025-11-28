@@ -3,10 +3,10 @@ package org.example.json_objects;
 import com.google.gson.annotations.SerializedName;
 
 public class MainJsonObject {
-    public String batchcomplete;
+    private String batchcomplete;
     @SerializedName("continue")
-    public Continue _continue;
-    public Query query;
+    private Continue _continue;
+    private Query query;
 
     public Query getQuery() {
         return query;
