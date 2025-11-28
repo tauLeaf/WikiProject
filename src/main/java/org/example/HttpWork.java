@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 //.uri(URI.create("https://www.google.com/"))
-public class HttpSend {
+public class HttpWork {
     public String getJsonString(String urlAddress) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

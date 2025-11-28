@@ -1,13 +1,15 @@
 package org.example;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.lang.module.InvalidModuleDescriptorException;
+import java.net.URI;
 import java.util.Scanner;
 
 public class WikiSearch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
+        int pageid = 0;
 
         // Будь проклят Microsoft
         System.out.print("Введите запрос для поиска в Википедии: ");
@@ -15,7 +17,7 @@ public class WikiSearch {
 
         SendRequestWiki sendWiki = new JsonAdapter();
         try {
-            sendWiki.search(input);
+            pageid = sendWiki.searchPage(input);
         }
         // Не все ошибки обрабатывает
         catch(IOException | InterruptedException e) {
@@ -25,7 +27,16 @@ public class WikiSearch {
             System.out.println("Что-то ГЛОБАЛЬНО пошло не так");
         }
 
+        openPageInBrowse(pageid);
+
         new File("./src/main/java/org/example/text.json").delete();
         scanner.close();
+    }
+
+    public static void openPageInBrowse(int pageid) throws IOException {
+        Desktop obj = Desktop.getDesktop();
+        String urlAddress = "https://ru.wikipedia.org/w/index.php?curid=" + pageid;
+
+        obj.browse(URI.create(urlAddress));
     }
 }
