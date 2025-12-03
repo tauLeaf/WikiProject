@@ -1,10 +1,8 @@
 package org.example;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 //Shift + Alt + F
+//Ctrl + Alt + L
 public class JsonAdapter implements SendRequestWiki {
     public int searchPage(String input) throws IOException, InterruptedException  {
         String urlAddress = getUrlAddress(input);
@@ -38,16 +37,36 @@ public class JsonAdapter implements SendRequestWiki {
         List<Info> searches = content.getQuery().getSearch();
         int i = 1;
 
+        if(searches.isEmpty()) { return 0; }
+
         System.out.println("Результат поиска:");
         for(Info info : searches) {
             System.out.println(i + ". " + info.getTitle());
             i++;
         }
 
+        int numberQuery = 0;
+        Scanner scanner = new Scanner(System.in);
         System.out.println("\nВведите номер выбранное статьи: ");
-        int numberQuery = new Scanner(System.in).nextInt();
+
+        while(numberQuery < 1 || numberQuery >= i) {
+            if(scanner.hasNextInt()) {
+                numberQuery = scanner.nextInt();
+            }
+            else {
+                System.out.println("Некорректный номер статьи, попробуйте ещё раз.");
+                scanner.next();
+            }
+        }
+
         int pageid = searches.get(numberQuery-1).getPageid();
 
         return pageid;
     }
+
+    public boolean isCorrectNumberQuery(int numberQuery) {
+
+        return false;
+    }
+
 }
