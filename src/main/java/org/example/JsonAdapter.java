@@ -60,13 +60,11 @@ public class JsonAdapter implements SendRequestWiki {
         }
 
         int pageid = searches.get(numberQuery-1).getPageid();
-
         return pageid;
     }
 
-    public boolean isCorrectNumberQuery(int numberQuery) {
-
-        return false;
-    }
-
+//    public boolean isCorrectNumberQuery(int numberQuery) {
+//
+//        return false;
+//    }
 }

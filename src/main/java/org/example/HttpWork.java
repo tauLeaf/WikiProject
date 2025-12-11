@@ -16,7 +16,7 @@ public class HttpWork {
             .uri(URI.create(urlAddress)).setHeader("user-agent", "text")
             .build();
 
-        HttpResponse<Path> response = client
+        HttpResponse response = client
             .send(request, HttpResponse.BodyHandlers.ofFile(Paths.get("./src/main/java/org/example/text.json")));
 
         String fileContent = Files.readString(Paths.get("./src/main/java/org/example/text.json"));

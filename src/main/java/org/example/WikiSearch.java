@@ -8,10 +8,9 @@ import java.util.Scanner;
 
 public class WikiSearch {
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-
-        // Будь проклят Microsoft
         System.out.print("Введите запрос для поиска в Википедии: ");
+
+        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         int pageid = 0;
@@ -20,7 +19,7 @@ public class WikiSearch {
             pageid = sendWiki.searchPage(input);
         }
         catch(IOException | InterruptedException e) {
-            System.out.println("Что-то пошло не так.");
+            System.out.println("Ошибка ввода");
         }
 
         if(pageid == 0) {
