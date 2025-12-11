@@ -8,26 +8,26 @@ import java.util.Scanner;
 
 public class WikiSearch {
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        int pageid = 0;
-
-        // Будь проклят Microsoft
         System.out.print("Введите запрос для поиска в Википедии: ");
+
+        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
+        int pageid = 0;
         SendRequestWiki sendWiki = new JsonAdapter();
         try {
             pageid = sendWiki.searchPage(input);
         }
-        // Не все ошибки обрабатывает
         catch(IOException | InterruptedException e) {
-            System.out.println("Что-то пошло не так.");
-        }
-        catch(Exception e) {
-            System.out.println("Что-то ГЛОБАЛЬНО пошло не так");
+            System.out.println("Ошибка ввода");
         }
 
-        openPageInBrowse(pageid);
+        if(pageid == 0) {
+            System.out.println("Совпадений не найдено.");
+        }
+        else {
+            openPageInBrowse(pageid);
+        }
 
         new File("./src/main/java/org/example/text.json").delete();
         scanner.close();
